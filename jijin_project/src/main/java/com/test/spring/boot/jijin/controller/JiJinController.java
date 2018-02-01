@@ -17,7 +17,7 @@ public class JiJinController {
 	
 	@GetMapping("/test")
 	public String test(TestParam param){
-		
+		//param.setId(1+"");
 		return jiJinService.test(param);
 	}
 }
