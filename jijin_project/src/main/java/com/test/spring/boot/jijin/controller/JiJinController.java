@@ -50,7 +50,8 @@ public class JiJinController {
 	     }
 	}
 	@RequestMapping("/table")
-	public Object table(){
+	public Object table(TestParam param){
+		logger.info(JSONObject.toJSONString(param));
 		TableEntity en1 = new TableEntity("a","b","c");
 		TableEntity en2 = new TableEntity("中","国","人");
 		TableEntity en3 = new TableEntity("中","国","人");
