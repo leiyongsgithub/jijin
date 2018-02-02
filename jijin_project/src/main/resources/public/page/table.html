@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width" />
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../bootstrap-table-develop/dist/bootstrap-table.min.css" rel="stylesheet" />
-    <script src="../tether/src/js/utils.js" type="text/javascript"></script>
-    <script src="../tether/src/js/tether.js" type="text/javascript"></script>
     <script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
 	<script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../bootstrap-table-develop/dist/bootstrap-table.min.js" type="text/javascript"></script>
@@ -30,6 +28,25 @@
 	});
 	$('#table').bootstrapTable({
 	    url: 'http://localhost:9999/jijin/table',
+	    striped: true,  //表格显示条纹
+        pagination: true, //启动分页
+        pageSize: 5,  //每页显示的记录数
+        pageNumber:1, //当前第几页
+        pageList: [5, 10, 15, 20],  //记录数可选列表
+        search: true,  //是否启用查询
+        showColumns: true,  //显示下拉框勾选要显示的列
+        showRefresh: true,  //显示刷新按钮
+        sidePagination: "client", //表示客户端分页，server表示服务端分页
+        responseHandler:function(res){
+            //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
+            //在ajax后我们可以在这里进行一些事件的处理
+            return res;
+          },
+        onLoadSuccess: function(data){  //加载成功时执行
+            },
+        onLoadError: function(){  //加载失败时执行
+              layer.msg("加载数据失败", {time : 1500, icon : 2});
+            },
 	    columns: [{
 	        field: 'id',
 	        title: 'Item ID'
