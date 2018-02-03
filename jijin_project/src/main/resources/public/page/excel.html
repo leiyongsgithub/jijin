@@ -35,7 +35,7 @@
 	$(function () {
 		//0.初始化fileinput
 		var oFileInput = new FileInput();
-		oFileInput.Init("txt_file", "http://localhost:9999/jijin/import");
+		oFileInput.Init("txt_file", "http://localhost:9999/fund/import");
 	});
 		//初始化fileinput
 	var FileInput = function () {
@@ -72,8 +72,7 @@
 		return oFile;
 	};
 	 $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
-	        console.log(data);
-	        if(data.response == 1000)
+	        if(data.response == "success")
 	        {
 	            alert("上传成功!");
 	        //关闭
