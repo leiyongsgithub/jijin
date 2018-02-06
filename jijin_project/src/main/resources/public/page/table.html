@@ -35,7 +35,7 @@
         pageNumber:1, //当前第几页
         pageList: [5, 10, 15, 20],  //记录数可选列表
         search: true,  //是否启用查询
-        showColumns: true,  //显示下拉框勾选要显示的列
+        showColumns: false,  //显示下拉框勾选要显示的列
         showRefresh: true,  //显示刷新按钮
         sidePagination: "client", //表示客户端分页，server表示服务端分页
         queryParams: queryParams, //参数  
@@ -52,28 +52,38 @@
             },
 	    columns: [{
 	        field: 'fundId',
-	        title: '基金编号'
+	        title: 'fundId'
 	    }, {
 	        field: 'fundName',
-	        title: '基金'
+	        title: 'fundName'
 	    }, {
 	        field: 'top10',
-	        title: '收益前10'
+	        title: 'top10'
 	    }, {
 	        field: 'date',
-	        title: '统计时间'
+	        title: 'date'
 	    }, {
 	        field: 'sharesId',
-	        title: '股票编码'
+	        title: 'sharesId'
 	    }, {
 	        field: 'sharesName',
-	        title: '股票名称'
+	        title: 'sharesName'
 	    }, {
 	        field: 'holdingRatio',
-	        title: '持有率'
-	    }
+	        title: 'holdingRatio'
+	    } , {
+	        field: 'Button',
+	        title: '按钮',
+	        formatter: 'test'
+	    } 
 	    ]
 	});
+	function test(){
+		return '<button onclick='+"test2()"+'>添加的按钮</button>';
+	}
+	function test2(){
+		alert(1);
+	}
 	function queryParams(params) {  //配置参数  
 	    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的  
 	      id: $("#EEE").val(),   //页面大小  
