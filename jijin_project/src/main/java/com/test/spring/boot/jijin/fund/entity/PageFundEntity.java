@@ -3,11 +3,15 @@ package com.test.spring.boot.jijin.fund.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PageFundEntity {
 	
 	private String fundId;
 	private String fundName;
 	private int top10;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	private String sharesId;
 	private String sharesName;
