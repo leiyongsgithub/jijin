@@ -1,4 +1,4 @@
-package com.test.spring.boot.jijin.entity;
+package com.test.spring.boot.jijin.common.entity;
 
 public class TableEntity {
 	

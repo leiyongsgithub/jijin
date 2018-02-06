@@ -1,8 +1,12 @@
 package com.test.spring.boot.jijin.fund.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.test.spring.boot.jijin.fund.entity.FundEntity;
+import com.test.spring.boot.jijin.fund.entity.PageFundEntity;
+import com.test.spring.boot.jijin.fund.param.PageParam;
 
 /**
 * @author leiyong E-mail:
@@ -14,4 +18,6 @@ import com.test.spring.boot.jijin.fund.entity.FundEntity;
 public interface FundDao {
 	
 	void save(FundEntity en);
+
+	List<PageFundEntity> pageQuery(PageParam param);
 }

@@ -1,4 +1,4 @@
-package com.test.spring.boot.jijin.entity;
+package com.test.spring.boot.jijin.common.entity;
 /**
 * @author leiyong E-mail:
 * @version 创建时间：2018年2月1日 下午9:41:31

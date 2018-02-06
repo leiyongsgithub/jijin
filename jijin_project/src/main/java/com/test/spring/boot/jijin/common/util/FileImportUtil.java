@@ -1,4 +1,4 @@
-package com.test.spring.boot.jijin.util;
+package com.test.spring.boot.jijin.common.util;
 
 import java.io.InputStream;
 import java.text.ParseException;

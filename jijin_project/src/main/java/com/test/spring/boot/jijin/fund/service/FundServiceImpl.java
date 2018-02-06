@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,14 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.test.spring.boot.jijin.entity.ReturnCode;
+import com.test.spring.boot.jijin.common.entity.ReturnCode;
+import com.test.spring.boot.jijin.common.util.FileImportUtil;
 import com.test.spring.boot.jijin.fund.dao.FundDao;
 import com.test.spring.boot.jijin.fund.entity.FundEntity;
+import com.test.spring.boot.jijin.fund.entity.PageFundEntity;
+import com.test.spring.boot.jijin.fund.param.PageParam;
 import com.test.spring.boot.jijin.fund_shares.dao.FundSharesDao;
 import com.test.spring.boot.jijin.fund_shares.entity.FundSharesEntity;
 import com.test.spring.boot.jijin.shares.dao.SharesDao;
 import com.test.spring.boot.jijin.shares.entity.SharesEntity;
-import com.test.spring.boot.jijin.util.FileImportUtil;
 
 /**
 * @author leiyong E-mail:
@@ -101,5 +104,12 @@ public class FundServiceImpl implements FundService{
 		entity.setHoldingRatio(new BigDecimal(param.get(6)));
 		return entity;
 	}
+
+	@Override
+	public List<PageFundEntity> pageQuery(PageParam param) {
+		return fundDao.pageQuery(param);
+	}
+	
+	
 	
 }

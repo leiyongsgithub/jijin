@@ -28,7 +28,7 @@
 		
 	});
 	$('#table').bootstrapTable({
-	    url: 'http://localhost:9999/jijin/table',
+	    url: 'http://localhost:9999/fund/page',
 	    striped: true,  //表格显示条纹
         pagination: true, //启动分页
         pageSize: 5,  //每页显示的记录数
@@ -51,15 +51,28 @@
               layer.msg("加载数据失败", {time : 1500, icon : 2});
             },
 	    columns: [{
-	        field: 'id',
-	        title: 'Item ID'
+	        field: 'fundId',
+	        title: '基金编号'
 	    }, {
-	        field: 'name',
-	        title: 'Item Name'
+	        field: 'fundName',
+	        title: '基金'
 	    }, {
-	        field: 'city',
-	        title: 'Item city'
-	    }, ]
+	        field: 'top10',
+	        title: '收益前10'
+	    }, {
+	        field: 'date',
+	        title: '统计时间'
+	    }, {
+	        field: 'sharesId',
+	        title: '股票编码'
+	    }, {
+	        field: 'sharesName',
+	        title: '股票名称'
+	    }, {
+	        field: 'holdingRatio',
+	        title: '持有率'
+	    }
+	    ]
 	});
 	function queryParams(params) {  //配置参数  
 	    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的  
