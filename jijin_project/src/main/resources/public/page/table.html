@@ -17,15 +17,11 @@
 <body>
 <div class="container">
   <table id="table" data-url="/cms/UserInfo/userInfoPage">
-  	<input type="hidden" value="321" id="EEE"/>
-  	<table data-toggle="table" >
-	</table>
   </table>
 </div>
 </body>
 <script>
-	$(function () {
-		
+	$(document).ready(function(){
 	});
 	$('#table').bootstrapTable({
 	    url: 'http://localhost:9999/fund/page',
@@ -44,33 +40,37 @@
             //远程数据加载之前,处理程序响应数据格式,对象包含的参数: 我们可以对返回的数据格式进行处理
             //在ajax后我们可以在这里进行一些事件的处理
             return res;
-          },
+        },
         onLoadSuccess: function(data){  //加载成功时执行
-            },
+        	$("td,th").addClass("text-center");
+        },
         onLoadError: function(){  //加载失败时执行
-              layer.msg("加载数据失败", {time : 1500, icon : 2});
-            },
+            layer.msg("加载数据失败", {time : 1500, icon : 2});
+        },
 	    columns: [{
 	        field: 'fundId',
-	        title: 'fundId'
+	        title: 'fund id'
 	    }, {
 	        field: 'fundName',
-	        title: 'fundName'
+	        title: 'fund name'
 	    }, {
 	        field: 'top10',
-	        title: 'top10'
+	        title: 'top 10'
 	    }, {
 	        field: 'date',
 	        title: 'date'
 	    }, {
 	        field: 'sharesId',
-	        title: 'sharesId'
+	        title: 'shares id'
 	    }, {
 	        field: 'sharesName',
-	        title: 'sharesName'
+	        title: 'shares name'
 	    }, {
 	        field: 'holdingRatio',
-	        title: 'holdingRatio'
+	        title: 'holding ratio'
+	    }, {
+	        field: 'score',
+	        title: 'score'
 	    } , {
 	        field: 'Button',
 	        title: '按钮',
@@ -79,14 +79,15 @@
 	    ]
 	});
 	function test(){
-		return '<button onclick='+"test2()"+'>添加的按钮</button>';
+		var res = '<a href="#" id="example" class="btn btn-success" rel="popover" data-content="为我的网站创建一个提示框如此简单！" data-original-title="Bootstrap弹出框">说明</a>';
+		return res;
 	}
 	function test2(){
-		alert(1);
+		var explain = "得分计算规则为：";
+		alert(explain);
 	}
 	function queryParams(params) {  //配置参数  
 	    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的  
-	      id: $("#EEE").val(),   //页面大小  
 	      name: 2
 	    };  
 	    return temp;  
