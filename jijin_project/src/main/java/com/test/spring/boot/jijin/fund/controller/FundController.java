@@ -35,13 +35,11 @@ public class FundController {
 	
 	@RequestMapping("/page")
 	public List<PageFundEntity> pageQuery(PageParam param){
-//		List<PageFundEntity> res = fundService.pageQuery(param);
-		List<PageFundEntity> res = new CopyOnWriteArrayList<>();
-		PageFundEntity en = new PageFundEntity();
-		en.setFundId("160213");en.setFundName("K100");en.setTop10(0);en.setDate(new Date());
-		en.setSharesId("APPLE");en.setSharesName("苹果");en.setHoldingRatio(new BigDecimal(0.11));
-		res.add(en);
-		res.add(en);
+		List<PageFundEntity> res = fundService.pageQuery(param);
 		return res;
+	}
+	@RequestMapping("/test")
+	public void test(){
+		fundService.test();
 	}
 }

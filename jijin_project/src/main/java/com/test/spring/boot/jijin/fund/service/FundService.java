@@ -15,9 +15,15 @@ import com.test.spring.boot.jijin.fund.param.PageParam;
 *		
 */
 public interface FundService {
-
+	//导入
 	String importData(HttpServletRequest request);
-
+	//页面查询
 	List<PageFundEntity> pageQuery(PageParam param);
-
+	/*
+	 * 定时任务
+	 * 将 fund shares fund_shares 表的数据  统计进入  holding_statistics
+	*/
+	void holdingStatistics();
+	
+	void test();
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.spring.boot.jijin.shares_ratio.dao.SharesRatioDao">
+	
+	<insert id="saveBatch" parameterType="java.util.Map">
+        insert into shares_ratio(shares_name,holding_ratio) values
+        <foreach collection="dataMap" item="value" index="key" separator=",">
+        (#{key},#{value})
+        </foreach>
+    </insert>
+</mapper>

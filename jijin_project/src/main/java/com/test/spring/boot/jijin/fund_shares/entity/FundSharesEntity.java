@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class FundSharesEntity {
 	
 	private String fundId;
-	private String sharesId;
+	private String sharesName;
 	private BigDecimal holdingRatio;
 	public FundSharesEntity() {
 		super();
@@ -22,17 +22,17 @@ public class FundSharesEntity {
 	public void setFundId(String fundId) {
 		this.fundId = fundId;
 	}
-	public String getSharesId() {
-		return sharesId;
-	}
-	public void setSharesId(String sharesId) {
-		this.sharesId = sharesId;
-	}
 	public BigDecimal getHoldingRatio() {
 		return holdingRatio;
 	}
 	public void setHoldingRatio(BigDecimal holdingRatio) {
 		this.holdingRatio = holdingRatio;
+	}
+	public String getSharesName() {
+		return sharesName;
+	}
+	public void setSharesName(String sharesName) {
+		this.sharesName = sharesName;
 	}
 	
 }

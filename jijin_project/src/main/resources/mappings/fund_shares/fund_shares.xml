@@ -6,12 +6,12 @@
         insert into fund_shares
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="fundId != null">fund_id,</if>
-            <if test="sharesId != null">shares_id,</if>
+            <if test="sharesName != null">shares_name,</if>
             <if test="holdingRatio != null">holding_ratio</if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="fundId != null">#{fundId},</if>
-            <if test="sharesId != null">#{sharesId},</if>
+            <if test="sharesName != null">#{sharesName},</if>
             <if test="holdingRatio != null">#{holdingRatio}</if>
         </trim>
     </insert>

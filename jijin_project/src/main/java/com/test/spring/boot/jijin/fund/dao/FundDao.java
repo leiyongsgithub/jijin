@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.test.spring.boot.jijin.fund.entity.FundEntity;
+import com.test.spring.boot.jijin.fund.entity.FundSharesHoldingEntity;
 import com.test.spring.boot.jijin.fund.entity.PageFundEntity;
 import com.test.spring.boot.jijin.fund.param.PageParam;
+import com.test.spring.boot.jijin.shares.entity.SharesEntity;
 
 /**
 * @author leiyong E-mail:
@@ -20,4 +22,8 @@ public interface FundDao {
 	void save(FundEntity en);
 
 	List<PageFundEntity> pageQuery(PageParam param);
+
+	List<SharesEntity> findSharesByFundId(String fundId);
+
+	List<FundSharesHoldingEntity> top10_fund_shares_list();
 }

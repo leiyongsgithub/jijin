@@ -3,7 +3,6 @@ package com.test.spring.boot.jijin.fund.param;
 public class PageParam {
 	
 	int top10;
-
 	public PageParam() {
 	}
 

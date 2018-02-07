@@ -1,6 +1,5 @@
 package com.test.spring.boot.jijin.fund.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
