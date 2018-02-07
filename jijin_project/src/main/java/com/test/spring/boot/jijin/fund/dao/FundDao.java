@@ -1,5 +1,6 @@
 package com.test.spring.boot.jijin.fund.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -23,7 +24,7 @@ public interface FundDao {
 
 	List<PageFundEntity> pageQuery(PageParam param);
 
-	List<SharesEntity> findSharesByFundId(String fundId);
-
 	List<FundSharesHoldingEntity> top10_fund_shares_list();
+
+	ArrayList<String> findSharesNameByFundId(String fundId);
 }

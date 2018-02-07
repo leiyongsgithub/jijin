@@ -8,4 +8,8 @@
         (#{key},#{value})
         </foreach>
     </insert>
+    
+    <select id="page" resultType="com.test.spring.boot.jijin.shares_ratio.entity.SharesRatioEntity">
+    	select shares_name sharesName,holding_ratio holdingRatio from shares_ratio
+    </select>
 </mapper>

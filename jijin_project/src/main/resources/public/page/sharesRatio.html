@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>表格展示数据</title>
+	<title>持仓列表展示</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container">
-  <table id="table" data-url="/cms/UserInfo/userInfoPage">
+  <table id="table" >
   </table>
 </div>
 </body>
@@ -24,7 +24,7 @@
 	$(document).ready(function(){
 	});
 	$('#table').bootstrapTable({
-	    url: 'http://localhost:9999/fund/page',
+	    url: 'http://localhost:9999/shares_ratio/page',
 	    striped: true,  //表格显示条纹
         pagination: true, //启动分页
         pageSize: 10,  //每页显示的记录数
@@ -48,30 +48,12 @@
             layer.msg("加载数据失败", {time : 1500, icon : 2});
         },
 	    columns: [{
-	        field: 'fundId',
-	        title: 'fund id'
-	    }, {
-	        field: 'fundName',
-	        title: 'fund name'
-	    }, {
-	        field: 'top10',
-	        title: 'top 10'
-	    }, {
-	        field: 'date',
-	        title: 'date'
-	    }, {
-	        field: 'sharesId',
-	        title: 'shares id'
-	    }, {
 	        field: 'sharesName',
 	        title: 'shares name'
 	    }, {
 	        field: 'holdingRatio',
 	        title: 'holding ratio'
 	    }, {
-	        field: 'score',
-	        title: 'score'
-	    } , {
 	        field: 'Button',
 	        title: '按钮',
 	        formatter: 'test'

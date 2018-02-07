@@ -3,6 +3,7 @@ package com.test.spring.boot.jijin.fund.service;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.test.spring.boot.jijin.common.entity.Constant;
 import com.test.spring.boot.jijin.common.entity.ReturnCode;
+import com.test.spring.boot.jijin.common.util.CheckUtil;
 import com.test.spring.boot.jijin.common.util.FileImportUtil;
 import com.test.spring.boot.jijin.fund.dao.FundDao;
 import com.test.spring.boot.jijin.fund.entity.FundEntity;
@@ -31,6 +34,7 @@ import com.test.spring.boot.jijin.fund_shares.entity.FundSharesEntity;
 import com.test.spring.boot.jijin.shares.dao.SharesDao;
 import com.test.spring.boot.jijin.shares.entity.SharesEntity;
 import com.test.spring.boot.jijin.shares_ratio.dao.SharesRatioDao;
+import com.test.spring.boot.jijin.shares_ratio.entity.SharesRatioEntity;
 
 /**
 * @author leiyong E-mail:
@@ -115,6 +119,10 @@ public class FundServiceImpl implements FundService{
 	@Override
 	public List<PageFundEntity> pageQuery(PageParam param) {
 		List<PageFundEntity> res = fundDao.pageQuery(param);
+		for (PageFundEntity entity : res) {
+			int score = setScore(entity.getFundId());
+			entity.setScore(score);
+		}
 		return res;
 	}
 
@@ -128,6 +136,7 @@ public class FundServiceImpl implements FundService{
 		Map<String,BigDecimal> dataMap = new ConcurrentHashMap<>();
 		List<HoldingSharesEntity> allChildren = new LinkedList<>();
 		List<FundSharesHoldingEntity> list = fundDao.top10_fund_shares_list();
+		if(CheckUtil.checkList(list)) return;
 		/**
 		 * 2.1   遍历top10 获取对应的child
 		 * 2.2 allChildren 收集所有child
@@ -165,4 +174,44 @@ public class FundServiceImpl implements FundService{
 	}
 	
 	
+	
+	
+	/**
+	 * 1. 获取fundId 对应的 sharesName list;
+	 * 	      获取shares_ratio表 持仓shares list
+	 * 2. 遍历sharesName,根据计算规则得到 score
+	 * 3. 汇总score
+	 */
+	public int setScore(String fundId){
+		int final_score = 0;
+		List<String> sharesNameList = fundDao.findSharesNameByFundId(fundId);
+		List<SharesRatioEntity> sharesRatioList =sharesRatioDao.page();
+		for (String name : sharesNameList) {
+			final_score += countScore(name,sharesRatioList);
+		}
+		return final_score;
+	}
+	/**
+	 * 计算规则：
+	 * 第一档 ：3  10分
+	 * 第二档 ：2  5分   
+	 * 第三档 ：1  2分
+	 * @param sharesRatioList 
+	 * @param name 
+	 */
+	private int countScore(String name, List<SharesRatioEntity> sharesRatioList) {
+		SharesRatioEntity entity = sharesRatioList.stream().
+				filter(s -> s.getSharesName().equals(name)).findAny().orElse(null);
+		if(entity != null){
+			if (entity.getHoldingRatio().compareTo(new BigDecimal(Constant.ONE_LEVEL_RATIO))>=0)
+				return Constant.ONE_LEVEL_SCORE;
+			
+			if (entity.getHoldingRatio().compareTo(new BigDecimal(Constant.TWO_LEVEL_RATIO))>=0)
+				return Constant.TWO_LEVEL_SCORE;
+			
+			if (entity.getHoldingRatio().compareTo(new BigDecimal(Constant.THREE_LEVEL_RATIO))>=0)
+				return Constant.THREE_LEVEL_SCORE;
+		}
+		return 0;
+	}
 }
