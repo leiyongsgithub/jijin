@@ -55,4 +55,8 @@
     		from fund f  join fund_shares fs on f.fund_id = fs.fund_id
     					 join shares s on fs.shares_id = s.shares_id
     </select>
+    <select id="findSharesNameByFundId" parameterType="java.lang.String" resultType="java.lang.String">
+    	select shares_name from  fund_shares 
+    			where fund_id=#{fundId}
+    </select>
 </mapper>
