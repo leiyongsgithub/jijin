@@ -31,5 +31,6 @@
     	<where>
     		<if test="fundId != null and fundId != '' ">fund_id = #{fundId}</if>
     	</where>
+    	order by fundId
     </select>
 </mapper>

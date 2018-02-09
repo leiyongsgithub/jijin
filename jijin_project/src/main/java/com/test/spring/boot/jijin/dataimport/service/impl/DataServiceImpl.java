@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.html.parser.Entity;
@@ -15,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.test.spring.boot.Factory.LocalLoggerFactory;
 import com.test.spring.boot.jijin.common.entity.Constant;
 import com.test.spring.boot.jijin.common.entity.ReturnCode;
+import com.test.spring.boot.jijin.common.util.CheckUtil;
 import com.test.spring.boot.jijin.common.util.FileImportUtil;
 import com.test.spring.boot.jijin.dataimport.dao.DataDao;
 import com.test.spring.boot.jijin.dataimport.entity.DataEntity;
@@ -38,25 +44,39 @@ public class DataServiceImpl implements DataService{
 	@Autowired
 	SharesRatioDao sharesRatioDao;
 	private static int score ;
+	private static CopyOnWriteArraySet<String> set = new CopyOnWriteArraySet<>();
 	@Override
 	public List<DataEntity> page() {
 		List<DataEntity> list = dataDao.page(new DataParam());
-		list.stream().forEach(Entity -> SetScore(Entity));
+		List<DataEntity> top10_list = list.stream().filter(entity -> entity.getTop10() == 1).collect(Collectors.toList());
+		List<DataEntity> last_list = list.stream().filter(entity -> entity.getTop10() == 0).collect(Collectors.toList());
+		SetScore(last_list);
+		list.clear();
+		list.addAll(top10_list);
+		list.addAll(last_list);
 		return list;
 	}
 
-	private void SetScore(DataEntity dataEntity) {
-		if(dataEntity != null && dataEntity.getTop10() == 0 
-				&& dataEntity.getFundId() != null) {
-			score = 0;
-			dataEntity.setScore(count(dataEntity.getFundId()));
+	private void SetScore(List<DataEntity> list) {
+		if(CheckUtil.checkList(list)) return;
+		set = new CopyOnWriteArraySet<>();
+		for (DataEntity dataEntity : list) {
+			int size = set.size();
+			set.add(dataEntity.getFundId());
+			if(set.size()>size){
+				dataEntity.setScore(count(dataEntity.getFundId()));
+			}else{
+				dataEntity.setScore(score);
+			}
 		}
+		
 	}
 
 	private Integer count(String fundId) {
 		/*
 		 * 1.获取 fundId 所有的持仓
 		 */
+		score = 0;
 		DataParam param = new DataParam();
 		param.setFundId(fundId);
 		List<DataEntity> list = dataDao.page(param);
@@ -74,30 +94,41 @@ public class DataServiceImpl implements DataService{
 				BigDecimal ratio = dataEntity.getHoldingRatio();
 				if(ratio.compareTo(new BigDecimal(Constant.THREE_LEVEL_RATIO))>0){
 					score = score - Constant.THREE_LEVEL_SCORE;
+					LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"- "+Constant.THREE_LEVEL_SCORE);
 					continue;
 				}
 				if(ratio.compareTo(new BigDecimal(Constant.TWO_LEVEL_RATIO))>0){
 					score = score - Constant.TWO_LEVEL_SCORE;
+					LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"- "+Constant.TWO_LEVEL_SCORE);
 					continue;
 				}
 				if(ratio.compareTo(new BigDecimal(Constant.ONE_LEVEL_RATIO))>0){
 					score = score - Constant.ONE_LEVEL_SCORE;
+					LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"- "+Constant.ONE_LEVEL_SCORE);
+					continue;
 				}
+				score -= 5;
+				LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"- 5");
 				continue;
 			}
 			BigDecimal ratio = dataEntity.getHoldingRatio();
 			if(ratio.compareTo(new BigDecimal(Constant.THREE_LEVEL_RATIO))>0){
 				score = score + Constant.THREE_LEVEL_SCORE;
+				LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"+ "+Constant.THREE_LEVEL_SCORE);
 				continue;
 			}
 			if(ratio.compareTo(new BigDecimal(Constant.TWO_LEVEL_RATIO))>0){
 				score = score + Constant.TWO_LEVEL_SCORE;
+				LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"+ "+Constant.TWO_LEVEL_SCORE);
 				continue;
 			}
 			if(ratio.compareTo(new BigDecimal(Constant.ONE_LEVEL_RATIO))>0){
 				score = score + Constant.ONE_LEVEL_SCORE;
+				LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"+ "+Constant.ONE_LEVEL_SCORE);
 				continue;
 			}
+			LocalLoggerFactory.getLogger().info(dataEntity.getFundName()+"+ 5");
+			score += 5;
 		}
 		return score;
 	}
