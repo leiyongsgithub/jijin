@@ -1,11 +1,15 @@
 package com.test.spring.boot.jijin.dataimport.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.mockito.internal.stubbing.defaultanswers.ReturnsMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.test.spring.boot.jijin.dataimport.entity.DataEntity;
 import com.test.spring.boot.jijin.dataimport.service.DataService;
 
 /**
@@ -25,5 +29,10 @@ public class DataController {
 	@RequestMapping("/import")
 	public String importData(HttpServletRequest request){
 		return dataservice.importData(request);
+	}
+	
+	@RequestMapping("page")
+	public List<DataEntity> page(){
+		return dataservice.page();
 	}
 }

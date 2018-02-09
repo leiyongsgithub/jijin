@@ -3,13 +3,27 @@
 <mapper namespace="com.test.spring.boot.jijin.shares_ratio.dao.SharesRatioDao">
 	
 	<insert id="saveBatch" parameterType="java.util.Map">
-        insert into shares_ratio(shares_name,holding_ratio) values
+        insert into shares_ratio(share_name,holding_ratio) values
         <foreach collection="dataMap" item="value" index="key" separator=",">
         (#{key},#{value})
         </foreach>
     </insert>
     
     <select id="page" resultType="com.test.spring.boot.jijin.shares_ratio.entity.SharesRatioEntity">
-    	select shares_name sharesName,holding_ratio holdingRatio from shares_ratio
+    	select share_name shareName,holding_ratio holdingRatio from shares_ratio order by holdingRatio desc
     </select>
+    
+    <select id="count" resultType="java.lang.Integer" parameterType="java.lang.String">
+    	select count(*) from shares_ratio where share_name = #{shareName}
+    </select>
+    
+    <insert id="saveData">
+    	INSERT into shares_ratio(share_name,holding_ratio)
+		select share_name, sum(holding_ratio) a from data_fund_share where top_10 =1 group by share_name 
+    </insert>
+    
+    <delete id="empty">
+    	delete from shares_ratio
+    </delete>
+    
 </mapper>

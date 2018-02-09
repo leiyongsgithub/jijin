@@ -1,6 +1,10 @@
 package com.test.spring.boot.jijin.dataimport.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
+import com.test.spring.boot.jijin.dataimport.entity.DataEntity;
 
 /**
 * @author leiyong E-mail:
@@ -11,5 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface DataService {
 
 	String importData(HttpServletRequest request);
+
+	List<DataEntity> page();
 
 }

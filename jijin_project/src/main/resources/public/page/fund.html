@@ -24,7 +24,7 @@
 	$(document).ready(function(){
 	});
 	$('#table').bootstrapTable({
-	    url: 'http://localhost:9999/fund/page',
+	    url: 'http://localhost:9999/data/page',
 	    striped: true,  //表格显示条纹
         pagination: true, //启动分页
         pageSize: 10,  //每页显示的记录数
@@ -60,11 +60,11 @@
 	        field: 'date',
 	        title: 'date'
 	    }, {
-	        field: 'sharesId',
-	        title: 'shares id'
+	        field: 'shareId',
+	        title: 'share id'
 	    }, {
-	        field: 'sharesName',
-	        title: 'shares name'
+	        field: 'shareName',
+	        title: 'share name'
 	    }, {
 	        field: 'holdingRatio',
 	        title: 'holding ratio'

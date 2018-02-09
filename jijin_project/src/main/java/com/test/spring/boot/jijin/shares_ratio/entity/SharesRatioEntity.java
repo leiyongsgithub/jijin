@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public class SharesRatioEntity {
 
-	private String sharesName;
+	private String shareName;
 	private BigDecimal holdingRatio;
 	public SharesRatioEntity() {
 		super();
 	}
-	public String getSharesName() {
-		return sharesName;
+	public String getShareName() {
+		return shareName;
 	}
-	public void setSharesName(String sharesName) {
-		this.sharesName = sharesName;
+	public void setShareName(String shareName) {
+		this.shareName = shareName;
 	}
 	public BigDecimal getHoldingRatio() {
 		return holdingRatio;

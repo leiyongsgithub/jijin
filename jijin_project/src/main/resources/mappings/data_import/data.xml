@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.spring.boot.jijin.dataimport.dao.DataDao">
+	<insert id="save" parameterType="com.test.spring.boot.jijin.dataimport.entity.DataEntity">
+        insert into data_fund_share
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fundId != null">fund_id,</if>
+            <if test="fundName != null">fund_name,</if>
+            <if test="top10 != null">top_10,</if>
+            <if test="date != null">date,</if>
+            <if test="shareId != null">share_id,</if>
+            <if test="shareName != null">share_name,</if>
+            <if test="holdingRatio != null">holding_ratio</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="fundId != null">#{fundId},</if>
+            <if test="fundName != null">#{fundName},</if>
+            <if test="top10 != null">#{top10},</if>
+            <if test="date != null">#{date},</if>
+            <if test="shareId != null">#{shareId},</if>
+            <if test="shareName != null">#{shareName},</if>
+            <if test="holdingRatio != null">#{holdingRatio}</if>
+        </trim>
+    </insert>
+    <select id="page" resultType="com.test.spring.boot.jijin.dataimport.entity.DataEntity"
+    	parameterType="com.test.spring.boot.jijin.dataimport.param.DataParam">
+    	select 
+    		fund_id fundId,fund_name fundName,top_10 top10,date,
+    		share_id shareId,share_name shareName,holding_ratio holdingRatio
+    	from data_fund_share
+    	<where>
+    		<if test="fundId != null and fundId != '' ">fund_id = #{fundId}</if>
+    	</where>
+    </select>
+</mapper>
