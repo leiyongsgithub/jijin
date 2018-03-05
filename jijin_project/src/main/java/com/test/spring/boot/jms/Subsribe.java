@@ -23,7 +23,9 @@ public class Subsribe {
 		Destination destination;
 		// 消费者，消息接收者  
 		MessageConsumer consumer;
-		connectionFactory = new ActiveMQConnectionFactory("admin", "admin", "tcp://192.168.3.159:61616");
+		ActiveMQConnectionFactory f = new ActiveMQConnectionFactory("admin", "activemq", "tcp://localhost:61616");
+		f.setTrustAllPackages(true);
+		connectionFactory = f;
 		try {
 			// 构造从工厂得到连接对象  
 			connection = connectionFactory.createConnection();
@@ -33,7 +35,7 @@ public class Subsribe {
 			//这个最好还是有事务
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			// 获取session注意参数值xingbo.xu-queue是一个服务器的queue，须在在ActiveMq的console配置  
-			destination = session.createQueue("test-queue");
+			destination = session.createTopic("leiyong");
 			consumer = session.createConsumer(destination);
 			consumer.setMessageListener(new MessageListener() {
 				@Override

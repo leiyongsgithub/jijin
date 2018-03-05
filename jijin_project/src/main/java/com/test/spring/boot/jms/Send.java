@@ -31,9 +31,9 @@ public class Send {
 			//待测试
 			destination = session.createQueue("leiyong");
 			producer = session.createProducer(destination);
-			producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			MqBean bean = new MqBean();
-			for(int i=1;i<5;i++){
+			for(int i=1;i<2;i++){
 				bean.setName(i+"岁猪儿虫");
 				bean.setAge(i);
 				producer.send(session.createObjectMessage(bean));

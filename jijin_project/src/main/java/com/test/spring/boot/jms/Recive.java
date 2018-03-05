@@ -30,7 +30,8 @@ public class Recive {
                 "&jms.redeliveryPolicy.maximumRedeliveries=6"; 
 		ActiveMQConnectionFactory af = new ActiveMQConnectionFactory("admin", "activemq", brokerUrl);
 		af.setTrustAllPackages(true);
-
+		af.setOptimizeAcknowledge(true);
+		af.setOptimizeAcknowledgeTimeOut(1000);
 		connectionFactory = af;
 		try {
 			// 构造从工厂得到连接对象  

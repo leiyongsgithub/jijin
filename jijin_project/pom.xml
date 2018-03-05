@@ -84,7 +84,11 @@
 		    <artifactId>spring-boot-starter-activemq</artifactId>
 		    <version>1.4.0.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.fusesource.mqtt-client</groupId>
+			<artifactId>mqtt-client</artifactId>
+			<version>1.14</version>
+		</dependency>
   </dependencies>
   
   <build>
