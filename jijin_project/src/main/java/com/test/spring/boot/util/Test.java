@@ -1,13 +1,13 @@
 package com.test.spring.boot.util;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Test {
 	
 	public static void main(String[] args) {
-		Set set =new  HashSet<>();
-		set.add(null);
-		System.out.println(set);
+		Map<String,Integer> map = new ConcurrentHashMap<>();
+		map.put("two", 2);map.put("one", 1);map.put("three", 3);
+		System.out.println(map.values());
 	}
 }
