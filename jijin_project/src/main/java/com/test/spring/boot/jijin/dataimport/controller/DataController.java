@@ -35,4 +35,8 @@ public class DataController {
 	public List<DataEntity> page(){
 		return dataservice.page();
 	}
+	@RequestMapping("/test")
+	public void test(){
+		dataservice.test();
+	}
 }

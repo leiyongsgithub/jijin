@@ -18,4 +18,6 @@ public interface DataService {
 
 	List<DataEntity> page();
 
+	void test();
+
 }

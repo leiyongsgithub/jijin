@@ -173,6 +173,11 @@ public class DataServiceImpl implements DataService{
 		entity.setHoldingRatio(new BigDecimal(list.get(6)));
 		return entity;
 	}
+
+	@Override
+	@Transactional
+	public void test() {
+	}
 	
 	
 }

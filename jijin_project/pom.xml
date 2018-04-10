@@ -42,7 +42,10 @@
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.45</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -89,6 +92,17 @@
 			<artifactId>mqtt-client</artifactId>
 			<version>1.14</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.iq80.leveldb</groupId>
+		    <artifactId>leveldb</artifactId>
+		    <version>0.10</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.iq80.leveldb</groupId>
+		    <artifactId>leveldb-api</artifactId>
+		    <version>0.10</version>
+		</dependency>
+		
   </dependencies>
   
   <build>

@@ -25,5 +25,4 @@
     <delete id="empty">
     	delete from shares_ratio
     </delete>
-    
 </mapper>
